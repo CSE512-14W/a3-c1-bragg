@@ -2,12 +2,14 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="viz.css" />
+<link rel="stylesheet" type="text/css" href="tipsy.css" />
 </head>
 <body>
 
 
 <script src="http://d3js.org/d3.v3.min.js"  charset="utf-8"></script>
-
+<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+<script src="jquery.tipsy.js"></script>
 <script>
 
 var margin = {top: 20, right: 20, bottom: 30, left: 50},
@@ -31,8 +33,8 @@ var xAxis = d3.svg.axis()
 
 var yAxis = d3.svg.axis()
     .scale(y)
-    .orient("left")
-    .tickFormat(formatPercent);
+    .orient("left");
+//    .tickFormat(formatPercent);
 
 var area = d3.svg.area()
     .x(function(d) { return x(d.date); })
@@ -48,7 +50,7 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.tsv("exampledata", function(error, data) {
+d3.csv("exampledata", function(error, data) {
   color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
 
   data.forEach(function(d) {
@@ -59,22 +61,36 @@ d3.tsv("exampledata", function(error, data) {
     return {
       name: name,
       values: data.map(function(d) {
-        return {date: d.date, y: d[name] / 100};
+        return {date: d.date, y: d[name] / 1};
       })
     };
   }));
 
   x.domain(d3.extent(data, function(d) { return d.date; }));
+  y.domain([0,1500]);
 
   var browser = svg.selectAll(".browser")
       .data(browsers)
     .enter().append("g")
       .attr("class", "browser");
 
-  browser.append("path")
+
+  paths = browser.append("path")
       .attr("class", "area")
       .attr("d", function(d) { return area(d.values); })
+      .attr("stroke", "black") 
+
       .style("fill", function(d) { return color(d.name); });
+
+  $('path').tipsy({gravity: 'w', html: true, title: function() {
+    return this.__data__.name}});
+
+  svg.selectAll(".area")
+      .on("mouseover", function(d,i) {d3.select(this).style("fill", "red")})
+      .on("mouseout", function(d,i) {d3.select(this).style("fill",  function(d) { return color(d.name); })});
+
+  //browser.append("title")
+  //  .text(function(d) { return d.name; });
 
   browser.append("text")
       .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })

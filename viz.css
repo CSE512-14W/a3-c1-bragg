@@ -1,11 +1,15 @@
-.chart div {
-  font: 10px sans-serif;
-  background-color: steelblue;
-  text-align: right;
-  padding: 3px;
-  margin: 1px;
-  color: white;
+.area {
+ fill: green;
 }
+path {
+  pointer-events:all;
+}
+
+path:hover {
+  fill: red;
+  stroke: blue;
+}
+
 
 body {
   font: 10px sans-serif;
