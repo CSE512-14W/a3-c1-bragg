@@ -241,7 +241,7 @@ function reDraw(elementToChangeName, isExpanding, firstDraw) {
       .on("mouseout", function(d,i) {d3.select(this).style("fill",  function(d) { return color(d.name); })});
 
   b.select("path.update").on("click", null);
-  b.select("path.update").transition().delay(250).duration(500).attr("d", function(d) {
+  b.select("path.update").transition().delay(250).duration(500).style("fill", function(d) {return color(d.name);}).attr("d", function(d) {
     d.values.map(function(d) { if (isExpanding) {
                                d.y = d.y0 + d.y; d.y0 = 0; }});
     return area(d.values);});
