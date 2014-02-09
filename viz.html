@@ -223,6 +223,7 @@ svgtemp2.append("text")
 //isExpanding denotes if we are expanding or collapsing (going back)
 function reDraw(elementToChangeName, data, isExpanding, firstDraw, isLeft) {
 
+
   var svg = null;
   var svgtemp = null;
   if (isLeft) {
@@ -233,8 +234,6 @@ function reDraw(elementToChangeName, data, isExpanding, firstDraw, isLeft) {
     svgtemp = svgtemp2;
   }
 
-  console.log("HEREEE");
-  console.log(svg);
   color.domain(Object.keys(data[0]).filter(function(key) { return key !== "date"; }));
 
   console.log(Object.keys(data[0]));
@@ -262,6 +261,7 @@ function reDraw(elementToChangeName, data, isExpanding, firstDraw, isLeft) {
 
 
   var elementExpandedToName = "placeholder";
+  var elementThatWasExpandedName = "placeholder";
 
   var s = svg.selectAll(".split")
       .data(splits, function(d) {
@@ -309,8 +309,6 @@ function reDraw(elementToChangeName, data, isExpanding, firstDraw, isLeft) {
     return area(d.values);});
   s.select("path.update").attr("class", "area");
 
-  console.log("HUH");
-  console.log(svg.selectAll(".area"));
   //if we are drawing a collapsing graph
   if (!isExpanding) {
     svg.selectAll(".area")
@@ -342,7 +340,8 @@ function reDraw(elementToChangeName, data, isExpanding, firstDraw, isLeft) {
                     district: null,
                     type: 'district'};
       }
-      reDraw(elementThatWasExpandedName, areas(counts,opts), false, false, isLeft);}).style("visibility", "visible");
+      reDraw(elementThatWasExpandedName, areas(counts,opts), false, false, isLeft);})
+        .style("visibility", "visible");
   } else {
     console.log(d3.select("Body").select("text"));
     svgtemp.selectAll(".back").on("click", null).style("visibility", "hidden");
@@ -358,11 +357,10 @@ function reDraw(elementToChangeName, data, isExpanding, firstDraw, isLeft) {
       .attr("class", "y axis")
       .call(yAxis);
 
-    d3.select("text.splitbycrime").on("click", null ).style("visibility", "visible");
-    d3.select("text.splitbydistrict").on("click", null).style("visibility", "visible");
+    //d3.select("text.splitbycrime").on("click", null ).style("visibility", "visible");
+    //d3.select("text.splitbydistrict").on("click", null).style("visibility", "visible");
 
   } else {
-    //d3.select(".back").on("click", null).style("visibility", "visible");
     svg.selectAll("g.y.axis").call(yAxis);
 
   }
