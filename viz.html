@@ -11,6 +11,123 @@
 <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
 <script src="jquery.tipsy.js"></script>
 <script>
+  var counts;
+
+  d3.csv("data/data.csv", function(d) {
+    return {
+      month: d.month,
+      group: d.group,
+      district: d.district,
+      count: +d.count
+    };
+  }, function(error, rows) {
+    counts = rows;
+    /*
+    var opts = {group: 'CAR PROWL',
+                district: null};
+    */
+    var opts = {group: null,
+                district: null,
+                type: 'group'};
+
+    console.log(areas(counts, opts));
+  });
+
+  // returns chris-style array
+  // type is needed when group and district are null and should be either
+  // 'group' or 'district'
+  function areas(rows, opts) {
+    var g = opts.group
+    var d = opts.district
+    // no filtering case
+    if (g==null && d==null) {
+        var lst = agg(rows, opts.type);
+    }
+    else if (g==null) {
+        var lst = filter(rows, 'district', d);
+    }
+    else {
+        var lst = filter(rows, 'group', g);
+    }
+    
+    return toDateFormat(lst);
+  };
+
+  // type is either 'district' or 'group'
+  function agg(rows, type) {
+      var d = {};
+      for (var i in rows) {
+          var r = rows[i];
+          var key = r.month + r[type];  // js keys must be strings
+          if (key in d) {
+              d[key] += r.count;
+          }
+          else {
+              d[key] = r.count;
+          }
+      }
+
+      var lst = [];
+      for (var key in d) {
+          var r = {month: key.substring(0,7),
+                   sub: key.substring(7),
+                   count: d[key]};
+
+          lst.push(r);
+      }
+
+      return lst;
+
+  }
+
+  // type is either 'district' or 'group'
+  function filter(rows, type, s) {
+      if (type == 'group') {
+          var otherType = 'district';
+      }
+      else {
+          var otherType = 'group';
+      }
+         
+      var lst = []
+      for (var i in rows) {
+          var r = rows[i];
+          if (r[type] == s) {
+              lst.push({month: r.month,
+                        sub: r[otherType],
+                        count: r.count});
+          }
+      }
+
+      return lst;
+  }
+
+  function toDateFormat(rows) {
+      var d = {};
+      for (var i in rows) {
+          var r = rows[i];
+
+          if (!(r.month in d)) {
+              d[r.month] = {};
+          }
+
+
+          d[r.month][r.sub] = r.count;
+      }
+
+      lst = []
+      for (var key in d) {
+          var e = d[key];
+          e.date = key;
+          lst.push(e);
+      }
+                     
+      return lst;
+  }
+</script>
+
+
+<script>
 
 var margin = {top: 20, right: 20, bottom: 30, left: 50},
     width = 960 - margin.left - margin.right,
