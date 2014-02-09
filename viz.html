@@ -29,7 +29,13 @@
     var opts = {group: null,
                 district: null,
                 type: 'group'};
-    reDraw(null, areas(counts, opts), false, true);
+    reDraw(null, areas(counts, opts), false, true, true);
+
+    opts = {group: null,
+                district: null,
+                type: 'district'};
+    reDraw(null, areas(counts, opts), false, true, false);
+
     console.log(areas(counts, opts));
   });
 
@@ -130,8 +136,9 @@
 <script>
 
 var margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    //width = 960 - margin.left - margin.right,
+    width = 500 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
 
 var parseDate = d3.time.format("%Y-%m").parse,
     formatPercent = d3.format(".0%");
@@ -161,17 +168,73 @@ var area = d3.svg.area()
 var stack = d3.layout.stack()
     .values(function(d) { return d.values; });
 
-var svg = d3.select("body").append("svg")
+var svgtemp1 = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
+    .attr("height", height + 50 + margin.top + margin.bottom)
+
+var svg1 = svgtemp1.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+svgtemp1.append("rect")
+  .attr("class", "back")
+  .attr("width", 220)
+  .attr("height", 80)
+  .attr("y", 400)
+  .style("fill", "red")
+  .style("stroke-width", 3)
+  .style("stroke", "red")
+  .style("visibility", "hidden");
+svgtemp1.append("text")
+  .attr("class", "back")
+  .attr("y", 430)
+  .attr("x", 50)
+  .attr("font-size", "20px")
+  .attr("font-family", "sans-serif")
+  .style("visibility", "hidden")
+  .text("Go Back").style("fill", "black");
+
+var svgtemp2 = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + 50 + margin.top + margin.bottom)
+
+var svg2 = svgtemp2.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+svgtemp2.append("rect")
+  .attr("class", "back")
+  .attr("width", 220)
+  .attr("height", 80)
+  .attr("y", 400)
+  .style("fill", "red")
+  .style("stroke-width", 3)
+  .style("stroke", "red")
+  .style("visibility", "hidden");
+svgtemp2.append("text")
+  .attr("class", "back")
+  .attr("y", 430)
+  .attr("x", 50)
+  .attr("font-size", "20px")
+  .attr("font-family", "sans-serif")
+  .style("visibility", "hidden")
+  .text("Go Back").style("fill", "black");
+
 
 
 
 //isExpanding denotes if we are expanding or collapsing (going back)
-function reDraw(elementToChangeName, data, isExpanding, firstDraw) {
+function reDraw(elementToChangeName, data, isExpanding, firstDraw, isLeft) {
+
+  var svg = null;
+  var svgtemp = null;
+  if (isLeft) {
+    svg = svg1;
+    svgtemp = svgtemp1;
+  } else {
+    svg = svg2;
+    svgtemp = svgtemp2;
+  }
+
   console.log("HEREEE");
+  console.log(svg);
   color.domain(Object.keys(data[0]).filter(function(key) { return key !== "date"; }));
 
   console.log(Object.keys(data[0]));
@@ -246,28 +309,43 @@ function reDraw(elementToChangeName, data, isExpanding, firstDraw) {
     return area(d.values);});
   s.select("path.update").attr("class", "area");
 
+  console.log("HUH");
+  console.log(svg.selectAll(".area"));
   //if we are drawing a collapsing graph
   if (!isExpanding) {
     svg.selectAll(".area")
       .on("click", function(d, i) {
-         var opts = {group: d.name,
+         if (isLeft) {
+           var opts = {group: d.name, 
                      district: null,
                      type: 'district'};
-         reDraw(d.name, areas(counts,opts), true);});
+         } else {
+           var opts = {group: null,
+                     district: d.name,
+                     type: 'group'};
+         }
+
+         reDraw(d.name, areas(counts,opts), true, false, isLeft);});
 
   }
 
 
   //if we are drawing an expanding graph, add a back button
   if (isExpanding) {
-    d3.select("text.back").on("click", function(d, i) {
-      var opts = {group: null,
-                  district: null,
-                  type: 'group'};
-      reDraw(elementThatWasExpandedName, areas(counts,opts), false);}).style("visibility", "visible");
+    svgtemp.selectAll(".back").on("click", function(d, i) {
+      if (isLeft) {
+        var opts = {group: null,
+                    district: null,
+                    type: 'group'};
+      } else {
+        var opts = {group: null,
+                    district: null,
+                    type: 'district'};
+      }
+      reDraw(elementThatWasExpandedName, areas(counts,opts), false, false, isLeft);}).style("visibility", "visible");
   } else {
     console.log(d3.select("Body").select("text"));
-    d3.select("text.back").on("click", null).style("visibility", "hidden");
+    svgtemp.selectAll(".back").on("click", null).style("visibility", "hidden");
   }
 
   if (firstDraw) {
@@ -284,7 +362,7 @@ function reDraw(elementToChangeName, data, isExpanding, firstDraw) {
     d3.select("text.splitbydistrict").on("click", null).style("visibility", "visible");
 
   } else {
-    //d3.select("text.back").on("click", null).style("visibility", "visible");
+    //d3.select(".back").on("click", null).style("visibility", "visible");
     svg.selectAll("g.y.axis").call(yAxis);
 
   }
@@ -297,7 +375,6 @@ function reDraw(elementToChangeName, data, isExpanding, firstDraw) {
 <br/>
 <text class="splitbycrime" style="visibility:hidden"> Split by Crime Type </text>
 <text class="splitbydistrict" style="visibility:hidden"> Split by District </text>
-<text class="back" style="visibility:hidden"> Go Back </text>
 
 </body>
 </html>
