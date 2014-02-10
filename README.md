@@ -27,6 +27,8 @@ In our storyboard, we imagined a single graph with which the user could interact
 
 Our initial thought was to visualize each group or district using a separate color, but we realized that we could convey more information by restricting the set of colors. In the case of district, we map colors to the broader regions (N,E,W,S,SW) shown in the map to facilitate faster geographic lookup. For groups, we noticed that we can calculate the average number of minutes from when officers arrive on-scene until the event is cleared, and use that time as a proxy for severity of crime. We bin the crime types into five evenly-spaced bins of 40 minutes, with colors from white to red.
 
+In the area chart, subdivisions are ordered alphebetically so that one can quickly find a specific district or crime group by name, rather than using color to get a sense of the aggregate trends.
+
 ## Development Process
 
 Include:
