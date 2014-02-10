@@ -250,7 +250,14 @@ function reDraw(elementToChangeName, data, isExpanding, firstDraw, isLeft) {
     svgtemp = svgtemp2;
   }
 
-  color.domain(Object.keys(data[0]).filter(function(key) { return key !== "date"; }));
+  color.domain(Object.keys(data[0]).filter(function(key) { return key !== "date";}));
+
+  if (subdivisions == 'district') {
+    var colorHash = districtColors;
+  }
+  else {
+    var colorHash = groupColors;
+  }
 
   console.log(Object.keys(data[0]));
   data.forEach(function(d) {
@@ -307,7 +314,7 @@ function reDraw(elementToChangeName, data, isExpanding, firstDraw, isLeft) {
       .attr("class", "area")
       .attr("d", function(d) { return area(d.values); })
       .attr("stroke", "black") 
-      .style("fill", function(d) { return color(d.name); })
+      .style("fill", function(d) { return colorHash[d.name]; })
       .style("visibility", "hidden")
       .transition().delay(1000).duration(750).style("visibility", "visible");
 
@@ -316,10 +323,10 @@ function reDraw(elementToChangeName, data, isExpanding, firstDraw, isLeft) {
 
   svg.selectAll(".area")
       .on("mouseover", function(d,i) {d3.select(this).style("fill", "red")})
-      .on("mouseout", function(d,i) {d3.select(this).style("fill",  function(d) { return color(d.name); })});
+      .on("mouseout", function(d,i) {d3.select(this).style("fill",  function(d) { return colorHash[d.name]; })});
 
   s.select("path.update").on("click", null);
-  s.select("path.update").transition().delay(250).duration(500).style("fill", function(d) {return color(d.name);}).attr("d", function(d) {
+  s.select("path.update").transition().delay(250).duration(500).style("fill", function(d) {return colorHash[d.name];}).attr("d", function(d) {
     d.values.map(function(d) { if (isExpanding) {
                                d.y = d.y0 + d.y; d.y0 = 0; }});
     return area(d.values);});
