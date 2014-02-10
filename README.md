@@ -28,7 +28,7 @@ In our storyboard, we imagined a single graph with which the user could interact
 
 Our initial thought was to visualize each group or district using a separate color, but we realized that we could convey more information by restricting the set of colors. In the case of district, we map colors to the broader regions (N,E,W,S,SW) shown in the map to facilitate faster geographic lookup. For groups, we noticed that we can calculate the average number of minutes from when officers arrive on-scene until the event is cleared, and use that time as a proxy for severity of crime. We bin the crime types into five evenly-spaced bins of 40 minutes, with colors from white to red.
 
-In the area charts, subdivisions are ordered alphabetically so that one can quickly find a specific district or crime group by name, rather than using color to get a sense of the aggregate trends.
+In the area charts, we order subdivisions alphabetically so that one can quickly find a specific district or crime group by name if one so desires.
 
 We also realized we needed to provide some information about what view the user is currently looking at, to prevent confusion. Thus, every time the user clicks on an area to filter the dataset, we update the title of the graph to reflect the current filter.
 
@@ -41,10 +41,8 @@ Chris:
   
 Jonathan:
 - Wrote preprocessing code.
-- Coded the coloring of the graphs to improve lookup time and comprehension.
-- Created the legend.
+- Coded the coloring of the graphs (with legends) to improve lookup time and comprehension.
 - Contributed to writeup.
-
  
 Our preprocessing code reads the original dataset and puts the results into convenient formats. We preprocessed the data into aggregate counts for each district-group pair so that we could efficiently aggregate those pairs further on demand (including only relevant data fields). This preprocessing drastically reduced query time and reduced the dataset size from over 200 megabytes to under 1 megabyte.
 
