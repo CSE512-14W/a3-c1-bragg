@@ -322,7 +322,7 @@ function reDraw(elementToChangeName, data, isExpanding, firstDraw, isLeft) {
     return this.__data__.name}});
 
   svg.selectAll(".area")
-      .on("mouseover", function(d,i) {d3.select(this).style("fill", "red")})
+  .on("mouseover", function(d,i) {d3.select(this).style("fill", function(d) { return d3.rgb(colorHash[d.name]).darker(1); })})
       .on("mouseout", function(d,i) {d3.select(this).style("fill",  function(d) { return colorHash[d.name]; })});
 
   s.select("path.update").on("click", null);
