@@ -25,6 +25,8 @@ Our storyboard is here: https://www.dropbox.com/s/mrda6im2dvjf76m/storyboard.pdf
 
 In our storyboard, we imagined a single graph with which the user could interact. The initial graph presented to the user would show the total number of crime reports across time, with no subdivisions. The user would then be able to divide up the graph by crime type or neighborhood. However, we decided instead to just present these two graphs initially. This reduces the number of interactions the user must use to explore the data, and also allows for comparison between graphs. 
 
+Our initial thought was to visualize each group or district using a separate color, but we realized that we could convey more information by restricting the set of colors. In the case of district, we map colors to the broader regions (N,E,W,S,SW) shown in the map to facilitate faster geographic lookup. For groups, we noticed that we can calculate the average number of minutes from when officers arrive on-scene until the event is cleared, and use that time as a proxy for severity of crime. We bin the crime types into five evenly-spaced bins of 40 minutes, with colors from white to red.
+
 ## Development Process
 
 Include:
