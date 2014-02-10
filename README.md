@@ -37,12 +37,15 @@ We also realized we needed to provide some information about what view the user 
 
 Chris:
 - Coded the basic graphs and interactions.
+- Contributed to writeup.
   
 Jonathan:
-- Prepared the dataset for easy reading.
-- Wrote code to read the dataset, analyze it, and put the results into convenient formats. We preprocessed the data into aggregate counts for each district-group pair so that we could efficiently aggregate those pairs further on demand (including only relevant data fields). This preprocessing drastically reduced query time and reduced the dataset size from over 200 megabytes to under 1 megabyte.
-- Coded the coloring of the graphs to reflect patterns.
+- Wrote preprocessing code.
+- Coded the coloring of the graphs to improve lookup time and comprehension.
 - Created the legend.
+- Contributed to writeup.
 
  
+Our preprocessing code reads the original dataset and puts the results into convenient formats. We preprocessed the data into aggregate counts for each district-group pair so that we could efficiently aggregate those pairs further on demand (including only relevant data fields). This preprocessing drastically reduced query time and reduced the dataset size from over 200 megabytes to under 1 megabyte.
+
 We each spent roughly 20 hours developing our visualization. Learning d3 took a good chunk of the time, as well as dealing with svg and javascript. In particular, learning the behavior of enter() and exit() took some amount of time, and debugging svg and javascript took a significant amount of time.
