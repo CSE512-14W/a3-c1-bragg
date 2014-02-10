@@ -431,24 +431,43 @@ function reDraw(elementToChangeName, data, isExpanding, firstDraw, isLeft) {
       .style("text-anchor", "middle");
  
     if (isLeft) {
-    svg.append("text")
-      .text("Number of Reports by Type of Crime")
-      .attr("x", width / 2 - 75)
-      //.attr("dx", ".4em")
-      .attr("y", margin.top - 40);
-    } else {
       svg.append("text")
-      .text("Number of Reports by Neighborhood")
-      .attr("x", width / 2 - 75)
-      //.attr("dx", -20)
-      .attr("y", margin.top - 40);
+        .text("Number of Reports by Type of Crime")
+        .attr("class", "title")
+        .attr("x", width / 2 - 75)
+        .attr("y", margin.top - 40);
+    } else {
+        svg.append("text")
+          .text("Number of Reports by Neighborhood")
+          .attr("class", "title")
+          .attr("x", width / 2 - 75)
+          .attr("y", margin.top - 40);
     }
-    //d3.select("text.splitbycrime").on("click", null ).style("visibility", "visible");
-    //d3.select("text.splitbydistrict").on("click", null).style("visibility", "visible");
-
   } else {
-    svg.selectAll("g.y.axis").call(yAxis);
+    
+    if (isLeft) {
+      if (isExpanding) {
+        svg.selectAll("text.title")
+          .text("Number of Reports of " + elementToChangeName);
+      } else {
+        svg.selectAll("text.title")
+          .text("Number of Reports by Type of Crime");
+      }
+    } else {
+      console.log("HUH");
+      console.log(svg.selectAll("text.title"));
+      if (isExpanding) {
+        svg.selectAll("text.title")
+          .text("Number of Reports in Neighborhood " + elementToChangeName);
 
+      } else {
+        svg.selectAll("text.title")
+          .text("Number of Reports by Neighborhood");
+      }
+    }
+
+    svg.selectAll("g.y.axis").call(yAxis);
+    
   }
 
   s.exit().transition().duration(100).style("fill-opacity", 1e-6).remove();
