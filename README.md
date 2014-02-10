@@ -8,7 +8,7 @@ a3-c1-bragg
 
 ## Crime in Seattle
 
-We visualize police reports of 911 calls in Seattle. We first present the user with two stacked area graphs. The first shows how the number of reports of each type of crime changes through time. The second shows how the number of reports of crime in each neighborhood of Seattle changes through time. Clicking on an area that represents a type of crime or a neighborhood allows the user to filter by that type or neighborhood. In the first case, the graph transitions into one that breaks down how that type of crime is ditributed among neighborhoods. In the second case, the graph transitions into one that breaks down how prevalent different kinds of crimes are in the given neighborhood.
+We visualize police reports of 911 calls in Seattle, using the <a href="https://data.seattle.gov/Public-Safety/Seattle-Police-Department-911-Incident-Response/3k2p-39jp">the dataset</a> available on data.seattle.gov. We first present the user with two stacked area graphs. The first shows how the number of reports of each type of crime changes through time. The second shows how the number of reports of crime in each neighborhood of Seattle changes through time. Clicking on an area that represents a type of crime or a neighborhood allows the user to filter by that type or neighborhood. In the first case, the graph transitions into one that breaks down how that type of crime is ditributed among neighborhoods. In the second case, the graph transitions into one that breaks down how prevalent different kinds of crimes are in the given neighborhood.
 
 
 ## Running Instructions
