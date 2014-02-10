@@ -14,7 +14,7 @@ We visualize police reports of 911 calls in Seattle. We first present the user w
 ## Running Instructions
 
 
-Access our visualization at http://homes.cs.washington.edu/~chrislin/a3/a3-c1-bragg/viz.html.
+Access our visualization at http://homes.cs.washington.edu/~chrislin/a3/a3-c1-bragg/viz.html. For optimal viewing, please use a screen that can display a width of 1400 pixels. An example of what our visualization should look like is here:  https://www.dropbox.com/s/4tu0oo3o6bsmhgp/screenshot.PNG
 
 
 ## Story Board
@@ -30,8 +30,6 @@ Our initial thought was to visualize each group or district using a separate col
 In the area charts, subdivisions are ordered alphebetically so that one can quickly find a specific district or crime group by name, rather than using color to get a sense of the aggregate trends.
 
 ## Development Process
-
-Include:
 
 Chris:
   -Coded the basic graphs and interactions.
