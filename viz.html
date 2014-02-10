@@ -136,7 +136,7 @@
 
 <script>
 
-var margin = {top: 20, right: 20, bottom: 30, left: 50},
+var margin = {top: 30, right: 20, bottom: 30, left: 100},
     //width = 960 - margin.left - margin.right,
     width = 500 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
@@ -368,11 +368,37 @@ function reDraw(elementToChangeName, data, isExpanding, firstDraw, isLeft) {
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis);
+    svg.append("text")
+      //.attr("transform", "rotate(-90)")
+      .text("Month")
+      .attr("x", width / 2)
+      .attr("y", height + margin.bottom + 10)
+      .style("text-anchor", "middle");
 
     svg.append("g")
       .attr("class", "y axis")
       .call(yAxis);
 
+    svg.append("text")
+      .text("# Records")
+      //.attr("transform", "translate("+ 0-margin.left +", " + height/2 + ")" + "rotate(-90)")
+      .attr("x", 0 - margin.left /1.5)
+      .attr("y", height / 2)
+      .style("text-anchor", "middle");
+ 
+    if (isLeft) {
+    svg.append("text")
+      .text("Number of Reports by Type of Crime")
+      .attr("x", width / 2 - 75)
+      //.attr("dx", ".4em")
+      .attr("y", margin.top - 40);
+    } else {
+      svg.append("text")
+      .text("Number of Reports by Neighborhood")
+      .attr("x", width / 2 - 75)
+      //.attr("dx", -20)
+      .attr("y", margin.top - 40);
+    }
     //d3.select("text.splitbycrime").on("click", null ).style("visibility", "visible");
     //d3.select("text.splitbydistrict").on("click", null).style("visibility", "visible");
 
