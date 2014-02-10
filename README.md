@@ -29,6 +29,9 @@ Our initial thought was to visualize each group or district using a separate col
 
 In the area charts, subdivisions are ordered alphebetically so that one can quickly find a specific district or crime group by name, rather than using color to get a sense of the aggregate trends.
 
+We also realized we needed to provide some information about what view the user is currently looking at, to prevent confusion. So everytime the user clicks on an area to filter the dataset, we update the title of the graph to reflect the current filter.
+
+
 ## Development Process
 
 Chris:
