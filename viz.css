@@ -1,3 +1,7 @@
+#container {
+    padding-left: 3px;
+}
+
 .area {
  fill: green;
 }
