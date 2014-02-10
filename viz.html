@@ -250,7 +250,14 @@ function reDraw(elementToChangeName, data, isExpanding, firstDraw, isLeft) {
     svgtemp = svgtemp2;
   }
 
-  color.domain(Object.keys(data[0]).filter(function(key) { return key !== "date"; }));
+  color.domain(Object.keys(data[0]).filter(function(key) { return key !== "date";}));
+
+  if (subdivisions == 'district') {
+    var colorHash = districtColors;
+  }
+  else {
+    var colorHash = groupColors;
+  }
 
   console.log(Object.keys(data[0]));
   data.forEach(function(d) {
@@ -307,7 +314,7 @@ function reDraw(elementToChangeName, data, isExpanding, firstDraw, isLeft) {
       .attr("class", "area")
       .attr("d", function(d) { return area(d.values); })
       .attr("stroke", "black") 
-      .style("fill", function(d) { return color(d.name); })
+      .style("fill", function(d) { return colorHash[d.name]; })
       .style("visibility", "hidden")
       .transition().delay(1000).duration(750).style("visibility", "visible");
 
@@ -315,11 +322,11 @@ function reDraw(elementToChangeName, data, isExpanding, firstDraw, isLeft) {
     return this.__data__.name}});
 
   svg.selectAll(".area")
-      .on("mouseover", function(d,i) {d3.select(this).style("fill", "red")})
-      .on("mouseout", function(d,i) {d3.select(this).style("fill",  function(d) { return color(d.name); })});
+  .on("mouseover", function(d,i) {d3.select(this).style("fill", function(d) { return d3.rgb(colorHash[d.name]).darker(1); })})
+      .on("mouseout", function(d,i) {d3.select(this).style("fill",  function(d) { return colorHash[d.name]; })});
 
   s.select("path.update").on("click", null);
-  s.select("path.update").transition().delay(250).duration(500).style("fill", function(d) {return color(d.name);}).attr("d", function(d) {
+  s.select("path.update").transition().delay(250).duration(500).style("fill", function(d) {return colorHash[d.name];}).attr("d", function(d) {
     d.values.map(function(d) { if (isExpanding) {
                                d.y = d.y0 + d.y; d.y0 = 0; }});
     return area(d.values);});
@@ -426,12 +433,6 @@ function reDraw(elementToChangeName, data, isExpanding, firstDraw, isLeft) {
         <area shape="poly" coords="211,766,221,711,315,716,353,685,288,616,266,554,273,502,271,459,238,465,184,444,97,509,143,656,146,699,181,754" href="" alt="Southwest Precinct" />
     </map>
 </p>
-
-<p style="background:#CA95D7; color:#fff">N</p>
-<p style="background:#FACB73; color:#fff">S</p>
-<p style="background:#9ABCDA; color:#fff">E</p>
-<p style="background:#A9DD9C; color:#fff">W</p>
-<p style="background:#D78561; color:#fff">SW</p>
 
 
 </body>
