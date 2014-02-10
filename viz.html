@@ -5,7 +5,8 @@
 <link rel="stylesheet" type="text/css" href="tipsy.css" />
 </head>
 <body>
-<div class="viz1">
+<div class="viz1" style="width: 500px; float:left;"></div>
+<div class="viz2" style="width: 500px; float:left;"></div>
 <!--<div id="legend" style="float:left;">-->
 <div id="group_legend" style="display:inline-block; vertical-align:top; margin-right: 20px; margin-top: 100px;"></div>
 
@@ -164,7 +165,7 @@ $(document).ready(function() {
 var margin = {top: 30, right: 20, bottom: 30, left: 100},
     //width = 960 - margin.left - margin.right,
     width = 500 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    height = 600 - margin.top - margin.bottom;
 
 var parseDate = d3.time.format("%Y-%m").parse,
     formatPercent = d3.format(".0%");
@@ -230,7 +231,7 @@ svgtemp1.append("text")
   .style("visibility", "hidden")
   .text("Go Back").style("fill", "black");
 */
-var svgtemp2 = d3.select("body").select("div.viz1").insert("svg", ":nth-child(3)")
+var svgtemp2 = d3.select("body").select("div.viz2").insert("svg", ":nth-child(3)")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + 50 + margin.top + margin.bottom)
 
