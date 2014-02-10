@@ -16,7 +16,7 @@ We visualize <a href="https://data.seattle.gov/Public-Safety/Seattle-Police-Depa
 Access our visualization at http://homes.cs.washington.edu/~chrislin/a3/a3-c1-bragg/viz.html. For optimal viewing, please use a screen that can display a width of 1400 pixels. An example of what our visualization should look like is here: https://www.dropbox.com/s/4tu0oo3o6bsmhgp/screenshot.PNG.
 
 
-## Data Domain Description and Storyboard
+## Data Exploration and Storyboard
 
 Our storyboard, available at the following link, describes the interactions we envisioned: https://www.dropbox.com/s/mrda6im2dvjf76m/storyboard.pdf.
 
