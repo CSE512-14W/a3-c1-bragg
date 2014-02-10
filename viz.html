@@ -175,7 +175,18 @@ var svgtemp1 = d3.select("body").append("svg")
 
 var svg1 = svgtemp1.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-svgtemp1.append("rect")
+svgtemp1.append("svg:image")
+  .attr("class", "back")
+  .attr("xlink:href", "img/back.jpeg")
+  .attr("width", 30)
+  .attr("height", 30)
+  //.attr("viewBox", "0 0 10000 10000")
+  //.style("fill", "red")
+  .attr("x", margin.left - 25)
+  .attr("y", height+margin.top+20)
+  .style("visibility", "hidden");
+
+/*svgtemp1.append("rect")
   .attr("class", "back")
   .attr("width", 220)
   .attr("height", 80)
@@ -192,14 +203,24 @@ svgtemp1.append("text")
   .attr("font-family", "sans-serif")
   .style("visibility", "hidden")
   .text("Go Back").style("fill", "black");
-
+*/
 var svgtemp2 = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + 50 + margin.top + margin.bottom)
 
 var svg2 = svgtemp2.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
+svgtemp2.append("svg:image")
+  .attr("class", "back")
+  .attr("xlink:href", "img/back.jpeg")
+  .attr("width", 30)
+  .attr("height", 30)
+  //.attr("viewBox", "0 0 10000 10000")
+  //.style("fill", "red")
+  .attr("x", margin.left - 25)
+  .attr("y", height+margin.top+20)
+  .style("visibility", "hidden");
+/*
 svgtemp2.append("rect")
   .attr("class", "back")
   .attr("width", 220)
@@ -217,7 +238,7 @@ svgtemp2.append("text")
   .attr("font-family", "sans-serif")
   .style("visibility", "hidden")
   .text("Go Back").style("fill", "black");
-
+*/
 
 
 
